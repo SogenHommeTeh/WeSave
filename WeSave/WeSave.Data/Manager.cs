@@ -45,6 +45,10 @@ namespace WeSave.Data
             object output = null;
             try
             {
+                output = new Level2.Output()
+                {
+                    Rentals = Data.Level2.RentalModel.FromData(data),
+                };
             }
             catch (Exception e)
             {

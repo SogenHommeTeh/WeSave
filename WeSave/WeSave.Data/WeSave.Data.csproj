@@ -13,7 +13,6 @@
     <Folder Include="Level4\" />
     <Folder Include="Level5\" />
     <Folder Include="Level6\" />
-    <Folder Include="Level2\" />
   </ItemGroup>
 
 </Project>
