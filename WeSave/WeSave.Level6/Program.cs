@@ -1,4 +1,5 @@
 ﻿using System;
+using WeSave.Data;
 
 namespace WeSave.Level6
 {
@@ -6,6 +7,7 @@ namespace WeSave.Level6
     {
         static void Main(string[] args)
         {
+            Manager.Level6();
             Console.WriteLine("Appuyer sur une touche...");
             Console.ReadKey();
         }
