@@ -95,11 +95,23 @@ namespace WeSave.Data.Level6
             if (car == null) throw new Exception("Car not found.");
 
             var days = (rental.EndDate - rental.StartDate).Days + 1;
-            var discount = 0.0;
-            if (days > 10) discount = 0.5;
-            else if (days > 4) discount = 0.3;
-            else if (days > 1) discount = 0.1;
-            Price = (long)(car.PricePerDay - discount * car.PricePerDay) * days + car.PricePerKm * rental.Distance;
+            Price = 0;
+            if (days > 10)
+            {
+                Price += (long)(car.PricePerDay - 0.5 * car.PricePerDay) * (days - 10);
+                Price += (long)(car.PricePerDay - 0.3 * car.PricePerDay) * 6;
+                Price += (long)(car.PricePerDay - 0.1 * car.PricePerDay) * 3;
+            }
+            else if (days > 4)
+            {
+                Price += (long)(car.PricePerDay - 0.3 * car.PricePerDay) * (days - 4);
+                Price += (long)(car.PricePerDay - 0.1 * car.PricePerDay) * 3;
+            }
+            else if (days > 1)
+            {
+                Price += (long)(car.PricePerDay - 0.1 * car.PricePerDay) * (days - 1);
+            }
+            Price += car.PricePerDay + car.PricePerKm * rental.Distance;
             var fee = (long)(Price * 0.3);
             Commission.InsuranceFee = fee / 2;
             Commission.AssistanceFee = days * 100;
