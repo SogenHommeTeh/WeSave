@@ -17,12 +17,9 @@ namespace WeSave.Data
             object output = null;
             try
             {
-                output = new Level1.Output()
-                {
-                    Rentals = Data.Level1.RentalModel.FromData(data),
-                };
+                output = new Level1.Output(data);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Une erreur est survenue lors du traitement des données, veuillez vérifier que le fichier 'data.json' contient des données valides.");
                 return;
@@ -45,12 +42,9 @@ namespace WeSave.Data
             object output = null;
             try
             {
-                output = new Level2.Output()
-                {
-                    Rentals = Data.Level2.RentalModel.FromData(data),
-                };
+                output = new Level2.Output(data);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Une erreur est survenue lors du traitement des données, veuillez vérifier que le fichier 'data.json' contient des données valides.");
                 return;
@@ -73,8 +67,9 @@ namespace WeSave.Data
             object output = null;
             try
             {
+                output = new Level3.Output(data);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Une erreur est survenue lors du traitement des données, veuillez vérifier que le fichier 'data.json' contient des données valides.");
                 return;
@@ -97,8 +92,9 @@ namespace WeSave.Data
             object output = null;
             try
             {
+                output = new Level4.Output(data);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Une erreur est survenue lors du traitement des données, veuillez vérifier que le fichier 'data.json' contient des données valides.");
                 return;
@@ -121,8 +117,9 @@ namespace WeSave.Data
             object output = null;
             try
             {
+                output = new Level5.Output(data);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Une erreur est survenue lors du traitement des données, veuillez vérifier que le fichier 'data.json' contient des données valides.");
                 return;
@@ -145,8 +142,9 @@ namespace WeSave.Data
             object output = null;
             try
             {
+                output = new Level6.Output(data);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Une erreur est survenue lors du traitement des données, veuillez vérifier que le fichier 'data.json' contient des données valides.");
                 return;
@@ -170,7 +168,7 @@ namespace WeSave.Data
                 }
                 return data;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return default(TType);
             }
@@ -190,7 +188,7 @@ namespace WeSave.Data
                 }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

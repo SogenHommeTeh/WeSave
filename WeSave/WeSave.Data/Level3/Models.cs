@@ -3,8 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace WeSave.Data.Level2
+namespace WeSave.Data.Level3
 {
+    public class CommissionModel
+    {
+        [JsonProperty("insurance_fee")]
+        public long InsuranceFee { get; set; }
+
+        [JsonProperty("assistance_fee")]
+        public long AssistanceFee { get; set; }
+
+        [JsonProperty("drivy_fee")]
+        public long DrivyFee { get; set; }
+    }
+
     public class RentalModel
     {
         [JsonProperty("id")]
@@ -12,6 +24,9 @@ namespace WeSave.Data.Level2
 
         [JsonProperty("price")]
         public long Price { get; set; }
+
+        [JsonProperty("commission")]
+        public CommissionModel Commission { get; set; }
     }
 
     public class Output
@@ -26,6 +41,7 @@ namespace WeSave.Data.Level2
                 var model = new RentalModel
                 {
                     Id = i + 1,
+                    Commission = new CommissionModel(),
                 };
 
                 if (x.StartDate > x.EndDate) throw new Exception("Wrong rental dates.");
@@ -38,6 +54,11 @@ namespace WeSave.Data.Level2
                 else if (days > 4) discount = 0.3;
                 else if (days > 1) discount = 0.1;
                 model.Price = (long)(car.PricePerDay - discount * car.PricePerDay) * days + car.PricePerKm * x.Distance;
+                var fee = (long)(model.Price * 0.3);
+                model.Commission.InsuranceFee = fee / 2;
+                model.Commission.AssistanceFee = days * 100;
+                model.Commission.DrivyFee = fee - (model.Commission.InsuranceFee + model.Commission.AssistanceFee);
+                if (model.Commission.DrivyFee < 0) throw new Exception("Wrong rental, cannot extract Drivy fee.");
                 return model;
             }).ToList();
         }

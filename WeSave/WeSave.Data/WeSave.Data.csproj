@@ -8,11 +8,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Level3\" />
-    <Folder Include="Level4\" />
-    <Folder Include="Level5\" />
-    <Folder Include="Level6\" />
-  </ItemGroup>
-
 </Project>

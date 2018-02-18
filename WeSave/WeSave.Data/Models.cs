@@ -40,6 +40,29 @@ namespace WeSave.Data
         [JsonRequired]
         [JsonProperty("distance")]
         public long Distance { get; set; }
+
+        [JsonProperty("deductible_reduction")]
+        public bool DeductibleReduction { get; set; }
+    }
+
+    public class RentalModificationModel
+    {
+        [JsonRequired]
+        [JsonProperty("id")]
+        public int Id { get; set; }
+
+        [JsonRequired]
+        [JsonProperty("rental_id")]
+        public int RentalId { get; set; }
+
+        [JsonProperty("start_date")]
+        public DateTime? StartDate { get; set; }
+
+        [JsonProperty("end_date")]
+        public DateTime? EndDate { get; set; }
+
+        [JsonProperty("distance")]
+        public long? Distance { get; set; }
     }
 
     public class DataModel
@@ -51,5 +74,8 @@ namespace WeSave.Data
         [JsonRequired]
         [JsonProperty("rentals")]
         public List<RentalModel> Rentals { get; set; }
+
+        [JsonProperty("rental_modifications")]
+        public List<RentalModificationModel> RentalModifications { get; set; }
     }
 }
