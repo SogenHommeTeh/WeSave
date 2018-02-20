@@ -7,7 +7,7 @@ namespace WeSave.Level1
     {
         static void Main(string[] args)
         {
-            Manager.Level1();
+            Manager.Level<DataModel, Data.Level1.Output>();
             Console.WriteLine("Appuyer sur une touche...");
             Console.ReadKey();
         }

@@ -5,36 +5,43 @@ using Newtonsoft.Json;
 
 namespace WeSave.Data.Level1
 {
-    public class RentalModel
+    public class RentalOutput : Data.RentalOutput
     {
-        [JsonProperty("id")]
-        public int Id { get; set; }
+        [JsonIgnore]
+        public override OptionsOutput Options { get; set; }
 
-        [JsonProperty("price")]
-        public long Price { get; set; }
+        [JsonIgnore]
+        public override CommissionOutput Commission { get; set; }
+
+        [JsonIgnore]
+        public override List<ActionOutput> Actions { get; set; }
     }
 
-    public class Output
+    public class Output : AOutput<DataModel>
     {
         [JsonProperty("rentals")]
-        public List<RentalModel> Rentals { get; set; }
+        public List<RentalOutput> Rentals { get; set; }
 
-        public Output(DataModel data)
+        public override AOutput<DataModel> FromData(DataModel data)
         {
-            Rentals = data.Rentals.Select((x, i) =>
+            Rentals = data.Rentals.Select((rental, i) =>
             {
-                var model = new RentalModel
+                var model = new RentalOutput
                 {
                     Id = i + 1,
                 };
 
-                if (x.StartDate > x.EndDate) throw new Exception("Wrong rental dates.");
-                var car = data.Cars.FirstOrDefault(y => y.Id == x.CarId);
-                if (car == null) throw new Exception("Car not found.");
+                if (rental.StartDate > rental.EndDate)
+                    throw new Exception("Wrong rental dates.");
+                var car = data.Cars.FirstOrDefault(carModel => carModel.Id == rental.CarId);
+                if (car == null)
+                    throw new Exception("Car not found.");
 
-                model.Price = car.PricePerDay * ((x.EndDate - x.StartDate).Days + 1) + car.PricePerKm * x.Distance;
+                model.ComputeBasicPrice(rental, car);
+
                 return model;
             }).ToList();
+            return this;
         }
     }
 }
